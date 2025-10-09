@@ -31,7 +31,7 @@ namespace BModder
 
                 if (Directory.Exists(input) || File.Exists(input))
                 {
-                    ColorConsole.WriteLineSuccess("Path found!");
+                    //ColorConsole.WriteLineSuccess("Path found!");
                     return input;
                 }
 

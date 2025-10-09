@@ -21,14 +21,15 @@ class Program
             game = new Game(path);
 
             if (game.Validate("Lethal Company.exe"))
-            {
-                ColorConsole.WriteLineSuccess("Game found!");
                 break;
-            }
+            
 
             ColorConsole.WriteLineError("Game not found. Try again.");
         }
 
-        ColorConsole.WriteLineInfo("\nCheck mods...");
+        string modsFile = "mods.json";
+        var mods = ModManager.LoadMods(modsFile);
+
+        ModManager.CheckMods(game.Path, mods);
     }
 }
