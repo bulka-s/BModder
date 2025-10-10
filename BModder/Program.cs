@@ -10,11 +10,11 @@ class Program
 
         while (true)
         {
-            string path = FileManager.AskGamePath();
+            string? path = FileManager.AskGamePath();
 
             if (path == null)
             {
-                ColorConsole.WriteLineInfo("Proramm ending...");
+                ColorConsole.WriteLineInfo("Program ending...");
                 return;
             }
 
@@ -22,13 +22,23 @@ class Program
 
             if (game.Validate("Lethal Company.exe"))
             {
-                ColorConsole.WriteLineSuccess("Game found!");
                 break;
             }
 
             ColorConsole.WriteLineError("Game not found. Try again.");
         }
 
-        ColorConsole.WriteLineInfo("\nCheck mods...");
+        if (UserInput.AskYesNo("Perform a clean installation (remove existing mods)?", "n"))
+        {
+            
+        }
+
+        if (UserInput.AskYesNo("Install missing mods?", "y"))
+        {
+            string modsFile = "mods.json";
+            var mods = ModManager.LoadMods(modsFile);
+
+            ModManager.CheckMods(game.Path, mods);
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace BModder
             Path = path;
         }
 
-        public bool Validate(string exeName = null)
+        public bool Validate(string? exeName = null)
         {
             if (!Directory.Exists(Path))
             {
@@ -33,7 +33,6 @@ namespace BModder
                 }
             }
 
-            ColorConsole.WriteLineSuccess("Game found!");
             return true;
         }
     }
