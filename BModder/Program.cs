@@ -7,14 +7,17 @@ class Program
     static void Main()
     {
         Game? game = null;
+        bool isOnline = true;
+
+        isOnline = UserInput.AskYesNo("");
 
         while (true)
         {
-            string path = FileManager.AskGamePath();
+            string? path = FileManager.AskGamePath();
 
             if (path == null)
             {
-                ColorConsole.WriteLineInfo("Proramm ending...");
+                ColorConsole.WriteLineInfo("Program ending...");
                 return;
             }
 
@@ -23,13 +26,18 @@ class Program
             if (game.Validate("Lethal Company.exe"))
                 break;
             
-
-            ColorConsole.WriteLineError("Game not found. Try again.");
+        }
+        if (UserInput.AskYesNo("Perform a clean installation (remove existing mods)?", "n"))
+        {
+            
         }
 
-        string modsFile = "mods.json";
-        var mods = ModManager.LoadMods(modsFile);
+        if (UserInput.AskYesNo("Install missing mods?", "y"))
+        {
+            string modsFile = "mods.json";
+            var mods = ModManager.LoadMods(modsFile);
 
-        ModManager.CheckMods(game.Path, mods);
+            ModManager.CheckMods(game.Path, mods);
+        }
     }
 }

@@ -11,13 +11,13 @@ namespace BModder
     public class Mod
     {
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [JsonPropertyName("modPath")]
-        public string ModPath { get; set; }
+        public string? ModPath { get; set; }
 
         [JsonPropertyName("downloadUrl")]
-        public string DownloadUrl { get; set; }
+        public string? DownloadUrl { get; set; }
 
         public bool IsInstalled(string gamePath)
         {

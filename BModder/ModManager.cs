@@ -24,7 +24,7 @@ namespace BModder
 
         public static void CheckMods(string gamePath, List<Mod> mods)
         {
-            ColorConsole.WriteLineInfo("\nChecking mods:\n");
+            ColorConsole.WriteLineInfo("Checking mods:\n");
 
             foreach (var mod in mods)
                 mod.PrintStatus(gamePath);
