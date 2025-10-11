@@ -33,6 +33,7 @@ namespace BModder
                 }
             }
 
+            ColorConsole.WriteLineSuccess("Game found!");
             return true;
         }
     }

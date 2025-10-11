@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -13,10 +14,15 @@ namespace BModder
         {
             defaultChoice = (defaultChoice.ToLower() == "n") ? "n" : "y";
 
-            string choiceHint = (defaultChoice == "y") ? "[Y/n]" : "[y/N]"; 
+            string choiceHint = (defaultChoice == "y") ? "[Y/n]" : "[y/N]";
+
+            int inputRow = Console.CursorTop;
+            Console.WriteLine();
 
             while (true)
             {
+                ConsoleHelper.ClearRow(inputRow);
+
                 ColorConsole.WriteLineInfo($"{message} {choiceHint}: ");
                 string? input = Console.ReadLine()?.Trim().ToLower();
 
@@ -31,25 +37,30 @@ namespace BModder
             }
         }
 
-        public static int AskMenu(string message = "Select menu item:", string answ_1, string answ_2)
+        public static int AskMenu(string[] items, string message = "Select menu item:")
         {
-            int choice = 0;
+            int startTop = Console.CursorTop;
 
             while (true)
-            {
-                ColorConsole.WriteLineInfo($"\n{message}:");
-                ColorConsole.WriteLineInfo($"1 - {message}:");
-                ColorConsole.WriteLineInfo($"2 -{message}:");
-                ColorConsole.WriteInfo($"> ");
+            { 
+                ConsoleHelper.ClearFragment(startTop);
 
-                //int? temp = Console.ReadLine();
+                ColorConsole.WriteLineInfo($"{message}\n");
+                for (int i = 0; i < items.Length; i++)
+                {
+                    ColorConsole.WriteLineInfo($"{i + 1} - {items[i]}");
+                }
 
-                
+                ColorConsole.WriteInfo("\n> ");
+                string? input = Console.ReadLine()?.Trim();
+
+                if (int.TryParse(input, out int choice) && choice >= 1 && choice <= items.Length)
+                    return choice;
+
+                ColorConsole.WriteLineWarning("\nInvalid choice. Try again...");
+                Thread.Sleep(1000);
 
             }
-
-            // по хорошему надо сделать очистку участка, при не правильном вводе
-            return choice;
         }
     }
 }

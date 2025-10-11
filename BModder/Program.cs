@@ -7,9 +7,12 @@ class Program
     static void Main()
     {
         Game? game = null;
-        bool isOnline = true;
 
-        isOnline = UserInput.AskYesNo("");
+        string modsFile = "mods.json";
+        //потом можно сделать проверку, и запросить ручной ввод, обработку ошибок и тд
+
+        string[] menuItems = { "Online install", "Offline install" };
+        int isOnline = UserInput.AskMenu(menuItems, "Choose installation method:");
 
         while (true)
         {
@@ -27,17 +30,14 @@ class Program
                 break;
             
         }
-        if (UserInput.AskYesNo("Perform a clean installation (remove existing mods)?", "n"))
-        {
-            
-        }
 
-        if (UserInput.AskYesNo("Install missing mods?", "y"))
-        {
-            string modsFile = "mods.json";
-            var mods = ModManager.LoadMods(modsFile);
+        
+        var mods = ModManager.LoadMods(modsFile);
+        Installer installer = new Installer(game, mods, isOnline == 1);
 
-            ModManager.CheckMods(game.Path, mods);
-        }
+        installer.Run(
+            UserInput.AskYesNo("Perform a clean installation (remove existing mods)?", "n")
+        );
+        
     }
 }

@@ -13,8 +13,19 @@ namespace BModder
     {
         public static string? AskGamePath(string message = "Enter the game path:\n>")
         {
+            Console.WriteLine();
+            int startTop = Console.CursorTop;
+
+            string? errorMessage = null;
+
             while (true)
             {
+                ConsoleHelper.ClearFragment(startTop);
+
+                if (errorMessage != null)
+                    ColorConsole.WriteLineWarning(errorMessage);
+                
+
                 ColorConsole.WriteInfo($"{message} ");
                 string? input = Console.ReadLine()?.Trim();
 
@@ -25,7 +36,7 @@ namespace BModder
 
                 if (string.IsNullOrWhiteSpace(input))
                 {
-                    ColorConsole.WriteLineWarning("\nPath cannot be empty. Try again or enter 'q' to quit.");
+                    errorMessage = "Path cannot be empty. Try again or enter 'q' to quit.";
                     continue;
                 }
 
@@ -34,7 +45,7 @@ namespace BModder
                     return input;
                 }
 
-                ColorConsole.WriteLineWarning("\nInvalid path. Try again or enter 'q' to quit.");
+                errorMessage = "Invalid path. Try again or enter 'q' to quit.";
             }
         }
     }
