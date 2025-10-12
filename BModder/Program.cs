@@ -39,5 +39,7 @@ class Program
             UserInput.AskYesNo("Perform a clean installation (remove existing mods)?", "n")
         );
 
+
+        
     }
 }

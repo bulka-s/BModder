@@ -19,7 +19,6 @@ namespace BModder
             _isOnline = isOnline;
         }
 
-        // ✅ Сделали асинхронным, чтобы можно было использовать await
         public async Task RunAsync(bool cleanInstall)
         {
             if (cleanInstall)
@@ -90,7 +89,6 @@ namespace BModder
                     }
                     finally
                     {
-                        // (по желанию) удаляем архив после установки
                         try
                         {
                             if (File.Exists(downloadPath))
