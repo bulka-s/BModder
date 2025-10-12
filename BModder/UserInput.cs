@@ -16,13 +16,13 @@ namespace BModder
 
             string choiceHint = (defaultChoice == "y") ? "[Y/n]" : "[y/N]";
 
-            int inputRow = Console.CursorTop;
-            Console.WriteLine();
+            int startTop = Console.CursorTop;
+            
 
             while (true)
             {
-                ConsoleHelper.ClearRow(inputRow);
-
+                ConsoleHelper.ClearFragment(startTop);
+                Console.WriteLine();
                 ColorConsole.WriteLineInfo($"{message} {choiceHint}: ");
                 string? input = Console.ReadLine()?.Trim().ToLower();
 

@@ -4,7 +4,7 @@ using System.IO;
 
 class Program
 {
-    static void Main()
+    static async Task Main()
     {
         Game? game = null;
 
@@ -35,9 +35,9 @@ class Program
         var mods = ModManager.LoadMods(modsFile);
         Installer installer = new Installer(game, mods, isOnline == 1);
 
-        installer.Run(
+        await installer.RunAsync(
             UserInput.AskYesNo("Perform a clean installation (remove existing mods)?", "n")
         );
-        
+
     }
 }
