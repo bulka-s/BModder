@@ -15,7 +15,7 @@ namespace BModder
             Path = path;
         }
 
-        public bool Validate(string exeName = null)
+        public bool Validate(string? exeName = null)
         {
             if (!Directory.Exists(Path))
             {
@@ -28,7 +28,7 @@ namespace BModder
                 string exePath = System.IO.Path.Combine(Path, exeName);
                 if (!File.Exists(exePath))
                 {
-                    ColorConsole.WriteLineWarning($"File not found: \"{exePath}\"");
+                    ColorConsole.WriteLineError($"\nGame not found: \"{exePath}\". Try again.");
                     return false;
                 }
             }

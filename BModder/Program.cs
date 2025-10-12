@@ -4,31 +4,42 @@ using System.IO;
 
 class Program
 {
-    static void Main()
+    static async Task Main()
     {
         Game? game = null;
 
+        string modsFile = "mods.json";
+        //потом можно сделать проверку, и запросить ручной ввод, обработку ошибок и тд
+
+        string[] menuItems = { "Online install", "Offline install" };
+        int isOnline = UserInput.AskMenu(menuItems, "Choose installation method:");
+
         while (true)
         {
-            string path = FileManager.AskGamePath();
+            string? path = FileManager.AskGamePath();
 
             if (path == null)
             {
-                ColorConsole.WriteLineInfo("Proramm ending...");
+                ColorConsole.WriteLineInfo("Program ending...");
                 return;
             }
 
             game = new Game(path);
 
             if (game.Validate("Lethal Company.exe"))
-            {
-                ColorConsole.WriteLineSuccess("Game found!");
                 break;
-            }
-
-            ColorConsole.WriteLineError("Game not found. Try again.");
+            
         }
 
-        ColorConsole.WriteLineInfo("\nCheck mods...");
+        
+        var mods = ModManager.LoadMods(modsFile);
+        Installer installer = new Installer(game, mods, isOnline == 1);
+
+        await installer.RunAsync(
+            UserInput.AskYesNo("Perform a clean installation (remove existing mods)?", "n")
+        );
+
+        Console.ReadKey();
+        
     }
 }
