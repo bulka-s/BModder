@@ -26,17 +26,22 @@ namespace BModder.UI
                 textBox.Foreground = System.Windows.Media.Brushes.Black;
             }
         }
-
-        private void GamePathTextBox_LostFocus(object sender, RoutedEventArgs e)
+        private void ConfigPathTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             var textBox = sender as TextBox;
-            if (string.IsNullOrWhiteSpace(textBox.Text))
+            if (string.IsNullOrWhiteSpace(ConfigPathTextBox.Text))
             {
                 textBox.Text = "Enter your game path...";
-                textBox.Foreground = System.Windows.Media.Brushes.Gray;
             }
         }
-
+        private void ConfigTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            if (string.IsNullOrWhiteSpace(ConfigPathTextBox.Text))
+            {
+                textBox.Text = "Enter your config path...";
+            }
+        }
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new OpenFileDialog();
@@ -49,7 +54,20 @@ namespace BModder.UI
             {
                 string selectedPath = System.IO.Path.GetDirectoryName(dialog.FileName);
                 GamePathTextBox.Text = selectedPath;
-                GamePathTextBox.Foreground = System.Windows.Media.Brushes.Black;
+            }
+        }
+        private void BrowseConfigButton_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.ValidateNames = false;
+            dialog.CheckFileExists = false;
+            dialog.CheckPathExists = true;
+            dialog.FileName = "Select Folder";
+
+            if (dialog.ShowDialog() == true)
+            {
+                string selectedPath = System.IO.Path.GetDirectoryName(dialog.FileName);
+                ConfigPathTextBox.Text = selectedPath;
             }
         }
 
@@ -57,7 +75,6 @@ namespace BModder.UI
         {
             string path = GamePathTextBox.Text.Trim();
 
-            // Проверяем, не является ли текст placeholder'ом
             if (string.IsNullOrWhiteSpace(path) || path == "Enter your game path...")
             {
                 Log("❌ Please enter a game path.");
@@ -73,38 +90,23 @@ namespace BModder.UI
                 Log("⚠️ Game not found.");
             }
         }
-
-        private void CheckModsButton_Click(object sender, RoutedEventArgs e)
+        private void CheckConfigButton_Click(object sender, RoutedEventArgs e)
         {
             string path = GamePathTextBox.Text.Trim();
-            if (string.IsNullOrWhiteSpace(path) || path == "Enter your game path...")
+
+            if (string.IsNullOrWhiteSpace(path) || path == "Enter your config path...")
             {
-                Log("❌ Please enter a game path first.");
+                Log("❌ Please enter a config path.");
                 return;
             }
 
-            string modsFile = "mods.json";
-            if (!File.Exists(modsFile))
+            if (File.Exists(System.IO.Path.Combine(path, "config.json")))
             {
-                Log("❌ mods.json not found!");
-                return;
+                Log("✅ Config found!");
             }
-
-            try
+            else
             {
-                var mods = ModManager.LoadMods(modsFile);
-                Log($"Found {mods.Count} mods:");
-
-                foreach (var mod in mods)
-                {
-                    bool installed = mod.IsInstalled(path);
-                    string symbol = installed ? "✅" : "⚠️";
-                    Log($"{symbol} {mod.Name}");
-                }
-            }
-            catch (Exception ex)
-            {
-                Log($"❌ Error loading mods: {ex.Message}");
+                Log("⚠️ Config not found.");
             }
         }
 

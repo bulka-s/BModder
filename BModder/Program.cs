@@ -7,9 +7,10 @@ class Program
     static async Task Main()
     {
         Game? game = null;
-
         string modsFile = "mods.json";
         //потом можно сделать проверку, и запросить ручной ввод, обработку ошибок и тд
+
+        ConsoleDraw.Banner();
 
         string[] menuItems = { "Online install", "Offline install" };
         int isOnline = UserInput.AskMenu(menuItems, "Choose installation method:");

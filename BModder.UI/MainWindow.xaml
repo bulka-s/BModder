@@ -26,7 +26,42 @@
                        HorizontalAlignment="Left"/>   
 
             <!-- Game path input -->
-            <Grid Grid.Row="1" HorizontalAlignment="Stretch" Margin="0,0,0,20">
+            <Grid HorizontalAlignment="Stretch" Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="ConfigPathTextBox"
+                         Grid.Column="0"
+                         Height="32"
+                         Margin="0,0,5,0"
+                         Padding="5"
+                         FontSize="14"
+                         Text="Enter your config path..."
+                         Background="#2D2D2D"
+                         Foreground="#FFFFFF"
+                         BorderBrush="#444"
+                         GotFocus="ConfigPathTextBox_LostFocus"/>  
+
+                <Button x:Name="BrowseConfigButton"
+                        Grid.Column="1"
+                        Content="Browse"
+                        Style="{StaticResource acceptButton}"
+                        Background="#00C853"
+                        Cursor="Hand"
+                        Click="BrowseConfigButton_Click"
+                        Margin="0,0,5,0"/>
+
+                <Button x:Name="CheckConfigButton"
+                        Grid.Column="2"
+                        Content="Check Config"
+                        Click="CheckConfigButton_Click"
+                        Style="{StaticResource acceptButton}"/>
+            </Grid>
+
+            <Grid HorizontalAlignment="Stretch" Margin="0,0,0,20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
@@ -41,9 +76,9 @@
                          FontSize="14"
                          Text="Enter your game path..."
                          Background="#2D2D2D"
-                         Foreground="White"
+                         Foreground="#FFFFFF"
                          BorderBrush="#444"
-                         GotFocus="GamePathTextBox_GotFocus"/>  
+                         GotFocus="GamePathTextBox_GotFocus"/>
 
                 <Button x:Name="BrowseButton"
                         Grid.Column="1"
@@ -60,21 +95,6 @@
                         Click="CheckGameButton_Click"
                         Style="{StaticResource acceptButton}"/>
             </Grid>
-            <!-- Buttons -->
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
-                
-
-                <Button x:Name="CheckModsButton"
-                        Content="Check Mods"
-                        Width="150"
-                        Height="36"
-                        Click="CheckModsButton_Click"
-                        Background="#00897B"
-                        Foreground="White"
-                        FontWeight="Bold"
-                        BorderThickness="0"
-                        Cursor="Hand"/> 
-            </StackPanel>
         </StackPanel>
         
 
