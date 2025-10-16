@@ -29,7 +29,7 @@
                     <Button x:Name="BrowseButton" Grid.Column="1" Content="Browse" Style="{StaticResource acceptButton}" Cursor="Hand" Click="BrowseButton_Click"/>
                 </Grid>
                 <CheckBox x:Name="isCleanInstall" Content="Clean install"/>
-                <CheckBox x:Name="isOfflineInstall" Content="Offline install"/>
+                <CheckBox x:Name="isOfflineInstall" Content="Offline install" IsEnabled="False"/>
                 
                 <!-- Offline mods path input -->
                 <Label x:Name="offlineLabel" Content="Mods path" IsEnabled="False"/>
@@ -43,7 +43,7 @@
                 </Grid>
                 <Button x:Name="InstallButton" Style="{StaticResource acceptButton}" Content="Install mods" Click="InstallButton_Click"/>
             </StackPanel>
-            <ProgressBar Height="15" VerticalAlignment="Bottom" Margin="0 0 5 0"/>
+            <ProgressBar x:Name="ProgressBarInstall" Height="20" Margin="0" Minimum="0" Maximum="100" Value="0" VerticalAlignment="Bottom"/>
         </Grid>
         <RichTextBox x:Name="LogBox" Grid.Column="2" IsReadOnly="True" Background="#1E1E1E" Foreground="White" BorderBrush="#333" FontFamily="Consolas" FontSize="11" Margin="10 0 0 0" VerticalScrollBarVisibility="Auto" Padding="10"/>
     </Grid>

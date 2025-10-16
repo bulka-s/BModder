@@ -17,6 +17,15 @@ namespace BModder.UI
             LogHelper.Init(LogBox);
 
             InstallationProcess = new InstallationProcess();
+
+            InstallationProcess.ProgressChanged += OnInstallProgressChanged;
+        }
+        private void OnInstallProgressChanged(int percent, string message)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                ProgressBarInstall.Value = percent;
+            });
         }
 
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
@@ -52,6 +61,7 @@ namespace BModder.UI
         {
             InstallationProcess.ConfigPath = ConfigPathTextBox.Text.Trim();
             InstallationProcess.GamePath = GamePathTextBox.Text.Trim();
+            InstallationProcess.IsCleanInstall = isCleanInstall.IsChecked ?? false;
 
             InstallationProcess.Start();
 

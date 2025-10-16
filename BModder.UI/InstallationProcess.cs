@@ -14,12 +14,15 @@ namespace BModder.UI
         public string ConfigPath { get; set; } = "";
         public string GamePath { get; set; } = "";
         public bool IsCleanInstall { get; set; } = false;
+        public bool IsOnline { get; set; } = true;
 
         private Config? Config = null;
 
+        public event Action<int, string>? ProgressChanged;
+
         private readonly static string confName = "config.json";
 
-        public void Start()
+        public async void Start()
         {
             LogHelper.ClearLogs();
 
@@ -33,6 +36,15 @@ namespace BModder.UI
                 return;
             }
             LogHelper.WriteLog("All paths validated. Ready to install mods.\n", LogHelper.LogType.Success);
+
+            Installer installer = new Installer(GamePath, Config!, IsOnline);
+
+            installer.OnProgress += (percent, message) =>
+            {
+                ProgressChanged?.Invoke(percent, message);
+            };
+
+            await installer.RunAsync(IsCleanInstall);
         }
         private bool InitConfig()
         {
@@ -40,7 +52,6 @@ namespace BModder.UI
 
             if (!FileManager.CheckPath(ConfigPath, confName))
             {
-                LogHelper.WriteLog($"Config not found. {fullPath}", LogHelper.LogType.Error);
                 return false;
             }
             else
@@ -75,7 +86,7 @@ namespace BModder.UI
 
         private bool CheckAllPaths()
         {
-            if (!FileManager.CheckPath(GamePath, Config!.MainFile)) return false;
+            if (!FileManager.CheckPath(GamePath, Config.MainFile)) return false;
             LogHelper.WriteLog($"Game found sucessfuly.", LogHelper.LogType.Success);
 
             return true;
