@@ -16,99 +16,103 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel>
-            <!-- Title -->
-            <TextBlock Text="BModder"
+        <Grid>
+            
+            <StackPanel>
+                <TextBlock Text="BModder"
                        Foreground="#00C853"
                        FontSize="28"
                        FontWeight="Bold"
                        Margin="0,0,0,20"
-                       HorizontalAlignment="Left"/>   
+                       HorizontalAlignment="Left"/>
 
-            <!-- Game path input -->
-            <Grid HorizontalAlignment="Stretch" Margin="0,0,0,20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+                <!-- Config path input -->
+                <Label Content="Config path"/>
+                <Grid HorizontalAlignment="Stretch" Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                <TextBox x:Name="ConfigPathTextBox"
+                    <TextBox x:Name="ConfigPathTextBox"
                          Grid.Column="0"
-                         Height="32"
-                         Margin="0,0,5,0"
-                         Padding="5"
-                         FontSize="14"
-                         Text="Enter your config path..."
-                         Background="#2D2D2D"
-                         Foreground="#FFFFFF"
-                         BorderBrush="#444"
-                         GotFocus="ConfigPathTextBox_LostFocus"/>  
+                         Style="{StaticResource path}"/>
 
-                <Button x:Name="BrowseConfigButton"
+                    <Button x:Name="BrowseConfigButton"
                         Grid.Column="1"
                         Content="Browse"
                         Style="{StaticResource acceptButton}"
-                        Background="#00C853"
-                        Cursor="Hand"
-                        Click="BrowseConfigButton_Click"
-                        Margin="0,0,5,0"/>
+                        Click="BrowseConfigButton_Click"/>
+                </Grid>
 
-                <Button x:Name="CheckConfigButton"
-                        Grid.Column="2"
-                        Content="Check Config"
-                        Click="CheckConfigButton_Click"
-                        Style="{StaticResource acceptButton}"/>
-            </Grid>
+                <!-- Game path input -->
+                <Label Content="Game path"/>
+                <Grid HorizontalAlignment="Stretch" Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-            <Grid HorizontalAlignment="Stretch" Margin="0,0,0,20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <TextBox x:Name="GamePathTextBox"
+                    <TextBox x:Name="GamePathTextBox"
                          Grid.Column="0"
-                         Height="32"
-                         Margin="0,0,5,0"
-                         Padding="5"
-                         FontSize="14"
-                         Text="Enter your game path..."
-                         Background="#2D2D2D"
-                         Foreground="#FFFFFF"
-                         BorderBrush="#444"
-                         GotFocus="GamePathTextBox_GotFocus"/>
+                         Style="{StaticResource path}"/>
 
-                <Button x:Name="BrowseButton"
+                    <Button x:Name="BrowseButton"
                         Grid.Column="1"
                         Content="Browse"
                         Style="{StaticResource acceptButton}"
-                        Background="#00C853"
                         Cursor="Hand"
-                        Click="BrowseButton_Click"
-                        Margin="0,0,5,0"/>
+                        Click="BrowseButton_Click"/>
+                </Grid>
 
-                <Button x:Name="CheckGameButton"
-                        Grid.Column="2"
-                        Content="Check Game"
-                        Click="CheckGameButton_Click"
-                        Style="{StaticResource acceptButton}"/>
-            </Grid>
-        </StackPanel>
-        
+                <CheckBox x:Name="isCleanInstall"
+                      Content="Clean install"/>
 
-        <!-- Log output -->
-        <TextBox x:Name="LogTextBox"
-                 Grid.Column="2"
-                 Margin="0,10,0,0"
-                 Background="#111"
-                 Foreground="#B0BEC5"
-                 FontFamily="Consolas"
-                 FontSize="13"
-                 IsReadOnly="True"
-                 AcceptsReturn="True"
-                 VerticalScrollBarVisibility="Auto"
-                 Text="Ready."/>
+                <CheckBox x:Name="isOfflineInstall"
+                      Content="Offline install"/>
+
+                <!-- Offline mods path input -->
+                <Label x:Name="offlineLabel" Content="Mods path" IsEnabled="False"/>
+                <Grid HorizontalAlignment="Stretch" Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox x:Name="ModsPathTextBox"
+                         Grid.Column="0"
+                         Style="{StaticResource path}"
+                         IsEnabled="False"/>
+
+                    <Button x:Name="BrowseModsButton"
+                        Grid.Column="1"
+                        IsEnabled="False"
+                        Content="Browse"
+                        Style="{StaticResource acceptButton}"
+                        Cursor="Hand"/>
+                </Grid>
+                
+                <Button x:Name="InstallButton"
+                        Style="{StaticResource acceptButton}"
+                        Content="Install mods" Click="InstallButton_Click"/>
+                
+            </StackPanel>
+
+            <ProgressBar Height="15"
+                         VerticalAlignment="Bottom"
+                         Margin="0 0 5 0"/>
+        </Grid>
+
+        <RichTextBox x:Name="LogBox"
+                     Grid.Column="2"
+                     IsReadOnly="True"
+                     Background="#1E1E1E"
+                     Foreground="White"
+                     BorderBrush="#333"
+                     FontFamily="Consolas"
+                     FontSize="14"
+                     Margin="10 0 0 0"
+                     VerticalScrollBarVisibility="Auto"
+                     Padding="10"/>
     </Grid>
 </Window>

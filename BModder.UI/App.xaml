@@ -5,6 +5,9 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
 
+        <!-- ============================================ -->
+        <!-- BUTTON -->
+
         <Style x:Key="acceptButton" TargetType="Button">
             <Setter Property="Background" Value="#2E7D32"/>
             <Setter Property="Foreground" Value="White"/>
@@ -13,7 +16,47 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Width" Value="100"/>
             <Setter Property="Height" Value="36"/>
-            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="Margin" Value="0,0,5,0"/>
+        </Style>
+
+        <!-- ============================================ -->
+        <!-- TEXTBOX -->
+
+        <Style TargetType="TextBox" x:Key="path">
+            <Setter Property="Background" Value="#2D2D2D"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#444"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Margin" Value="0,0,5,0"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style TargetType="TextBox" x:Key="log">
+            <Setter Property="Background" Value="#111"/>
+            <Setter Property="Foreground" Value="#B0BEC5"/>
+            <Setter Property="Margin" Value="0,10,0,0"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        </Style>
+
+        <!-- ============================================ -->
+        <!-- CHECKBOX -->
+
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="#fff"/>
+            <Setter Property="Margin" Value="0, 0, 0, 15"/>
+        </Style>
+
+        <!-- ============================================ -->
+        <!-- LABEL -->
+
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="#fff"/>
+            <Setter Property="Padding" Value="0 0 0 5"/>
         </Style>
 
     </Application.Resources>

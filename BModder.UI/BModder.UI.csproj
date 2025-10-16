@@ -21,4 +21,8 @@
     <ProjectReference Include="..\BModder\BModder.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="InstallHelpers\" />
+  </ItemGroup>
+
 </Project>
