@@ -9,7 +9,7 @@ namespace BModder.UI
         {
             if (!File.Exists(jsonPath))
             {
-                ColorConsole.WriteLineError($"File not fond: {jsonPath}");
+                LogHelper.WriteLog($"File not fond: {jsonPath}", LogHelper.LogType.Error);
                 return new List<Mod>();
             }
 
@@ -19,7 +19,7 @@ namespace BModder.UI
 
         public static void CheckMods(string gamePath, List<Mod> mods)
         {
-            ColorConsole.WriteLineInfo("Checking mods:\n");
+            LogHelper.WriteLog("Checking mods:\n", LogHelper.LogType.Info);
 
             foreach (var mod in mods)
                 mod.PrintStatus(gamePath);

@@ -19,7 +19,7 @@ namespace BModder.UI
         {
             if (string.IsNullOrWhiteSpace(ModPath))
             {
-                ColorConsole.WriteLineError($"The path (folder) is not specified in the \"{{Name}}\" mod.");
+                LogHelper.WriteLog($"The path (folder) is not specified in the \"{{Name}}\" mod.", LogHelper.LogType.Error);
                 return false;
             }
 
@@ -31,10 +31,10 @@ namespace BModder.UI
         {
             if (IsInstalled(gamePath))
             {
-                ColorConsole.WriteLineSuccess($"{Name}");
+                LogHelper.WriteLog($"{Name}", LogHelper.LogType.Success);
             } else
             {
-                ColorConsole.WriteLineError($"{Name}");
+                LogHelper.WriteLog($"{Name}", LogHelper.LogType.Error);
             }
         }
        

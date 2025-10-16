@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BModder", "BModder\BModder.csproj", "{FB81FFB4-C071-4E2B-B852-ACC917307536}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BModder.UI", "BModder.UI\BModder.UI.csproj", "{4FE87B19-EF62-4941-ADA8-0E8254963199}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BModder.UI", "BModder.UI\BModder.UI.csproj", "{4FE87B19-EF62-4941-ADA8-0E8254963199}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FB81FFB4-C071-4E2B-B852-ACC917307536}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FB81FFB4-C071-4E2B-B852-ACC917307536}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FB81FFB4-C071-4E2B-B852-ACC917307536}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FB81FFB4-C071-4E2B-B852-ACC917307536}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4FE87B19-EF62-4941-ADA8-0E8254963199}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4FE87B19-EF62-4941-ADA8-0E8254963199}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FE87B19-EF62-4941-ADA8-0E8254963199}.Release|Any CPU.ActiveCfg = Release|Any CPU
