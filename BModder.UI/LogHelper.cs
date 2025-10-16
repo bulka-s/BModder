@@ -1,13 +1,21 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Documents;
+using System.Windows.Input;
+using System.Reflection.Metadata;
 
 namespace BModder.UI
 {
     public static class LogHelper
     {
+        private static RichTextBox? _logBox;
 
-        public static void WriteLog(RichTextBox box, string message, LogType type = LogType.Info)
+        public static void Init(RichTextBox box)
+        {
+            _logBox = box;
+        }
+
+        public static void WriteLog(string message, LogType type = LogType.Info)
         {
             SolidColorBrush color = type switch
             {
@@ -17,17 +25,33 @@ namespace BModder.UI
                 _ => new SolidColorBrush(Color.FromRgb(0xB0, 0xB0, 0xB0)), // gray
             };
 
-            box.Dispatcher.Invoke(() =>
+            _logBox?.Dispatcher.Invoke(() =>
             {
-                Paragraph paragraph = new Paragraph(new Run(message))
+                Paragraph paragraph = new Paragraph(new Run(getPrefix(type) + message))
                 {
                     Foreground = color,
                     Margin = new System.Windows.Thickness(0)
                 };
 
-                box.Document.Blocks.Add(paragraph);
-                box.ScrollToEnd(); // auto scroll
+                _logBox.Document.Blocks.Add(paragraph);
+                _logBox.ScrollToEnd(); // auto scroll
             });
+        }
+
+        private static string getPrefix(LogType logType)
+        {
+            return logType switch
+            {
+                LogType.Success => "[SUCCESS] ",
+                LogType.Error   => "[ERR]     ",
+                LogType.Warn    => "[WARN]    ",
+                _               => "[INFO]    "
+            };
+        }
+
+        public static void ClearLogs()
+        {
+            _logBox?.Document.Blocks.Clear();
         }
 
         public enum LogType

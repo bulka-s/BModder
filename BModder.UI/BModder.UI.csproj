@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="InstallHelpers\" />
+    <Folder Include="Install\" />
   </ItemGroup>
 
 </Project>

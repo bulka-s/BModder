@@ -13,7 +13,10 @@ namespace BModder.UI
         public MainWindow()
         {
             InitializeComponent();
-            InstallationProcess = new InstallationProcess(LogBox);
+
+            LogHelper.Init(LogBox);
+
+            InstallationProcess = new InstallationProcess();
         }
 
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
@@ -52,7 +55,7 @@ namespace BModder.UI
 
             InstallationProcess.Start();
 
-            LogHelper.WriteLog(LogBox, "End...", LogHelper.LogType.Info);
+            LogHelper.WriteLog("End...", LogHelper.LogType.Info);
         }
     }
 }

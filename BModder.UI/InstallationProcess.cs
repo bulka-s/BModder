@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Controls;
 using System.IO;
 using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace BModder.UI
 {
@@ -12,74 +13,72 @@ namespace BModder.UI
     {
         public string ConfigPath { get; set; } = "";
         public string GamePath { get; set; } = "";
-        public RichTextBox LogBox { get; set; }
+        public bool IsCleanInstall { get; set; } = false;
 
-        public InstallationProcess(RichTextBox _logBox)
-        {
-            LogBox = _logBox;
-        }
+        private Config? Config = null;
+
+        private readonly static string confName = "config.json";
 
         public void Start()
         {
-            ClearLogs();
-            LogHelper.WriteLog(LogBox, "Starting installation...", LogHelper.LogType.Info);
+            LogHelper.ClearLogs();
+
+            if (!InitConfig()) return;
+
+            LogHelper.WriteLog("Starting installation...", LogHelper.LogType.Info);
 
             if (!CheckAllPaths())
             {
-                LogHelper.WriteLog(LogBox, "Installation aborted due to invalid paths.", LogHelper.LogType.Error);
+                LogHelper.WriteLog("Installation aborted due to invalid paths.", LogHelper.LogType.Error);
                 return;
             }
+            LogHelper.WriteLog("All paths validated. Ready to install mods.\n", LogHelper.LogType.Success);
+        }
+        private bool InitConfig()
+        {
+            string fullPath = System.IO.Path.Combine(ConfigPath, confName);
 
-            // TODO: добавить загрузку и установку модов
-            LogHelper.WriteLog(LogBox, "All paths validated. Ready to install mods.", LogHelper.LogType.Success);
+            if (!FileManager.CheckPath(ConfigPath, confName))
+            {
+                LogHelper.WriteLog($"Config not found. {fullPath}", LogHelper.LogType.Error);
+                return false;
+            }
+            else
+            {
+                LogHelper.WriteLog($"Config found sucessfuly. {fullPath}", LogHelper.LogType.Success);
+            }
+
+            try
+            {
+                Config = ConfigManager.LoadConfigs(fullPath);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.WriteLog($"Error loading config: {ex.Message}", LogHelper.LogType.Error);
+                return false;
+            }
+
+            if (Config == null)
+            {
+                LogHelper.WriteLog("Couldn't load the config.", LogHelper.LogType.Error);
+                return false;
+            }
+            if (!Config!.CheckConfig())
+            {
+                LogHelper.WriteLog("Incorrect config file.", LogHelper.LogType.Error);
+                return false;
+            }
+
+            LogHelper.WriteLog("Config load sucessfuly!", LogHelper.LogType.Success);
+            return true;
         }
 
         private bool CheckAllPaths()
         {
-            if (!CheckPath(ConfigPath, "config.json"))  
-            {
-                return false;
-            }
-            LogHelper.WriteLog(LogBox, $"Config found sucessfuly.", LogHelper.LogType.Success);
-
-            if (!CheckPath(GamePath, "Lethal Company.exe")) return false;
-            LogHelper.WriteLog(LogBox, $"Game found sucessfuly.", LogHelper.LogType.Success);
+            if (!FileManager.CheckPath(GamePath, Config!.MainFile)) return false;
+            LogHelper.WriteLog($"Game found sucessfuly.", LogHelper.LogType.Success);
 
             return true;
-        }
-
-        private bool CheckPath(string path, string? targetFile = null)
-        {
-            path = path.Trim();
-
-            if (string.IsNullOrWhiteSpace(path))
-            {
-                LogHelper.WriteLog(LogBox, $"Invalid path. (empty)", LogHelper.LogType.Error);
-                return false;
-            }
-
-            if (!Directory.Exists(path))
-            {
-                LogHelper.WriteLog(LogBox, $"Path not found. {path}", LogHelper.LogType.Error);
-                return false;
-            }
-
-            if (targetFile != null)
-            {
-                string fullFile = System.IO.Path.Combine(path, targetFile);
-                if (!File.Exists(fullFile))
-                {
-                    LogHelper.WriteLog(LogBox, $"File not found. {fullFile}", LogHelper.LogType.Error);
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        private void ClearLogs()
-        {
-            LogBox.Document.Blocks.Clear();
         }
     }
 }
