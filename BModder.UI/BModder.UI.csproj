@@ -1,1 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk"> <PropertyGroup> <OutputType>WinExe</OutputType> <TargetFramework>net8.0-windows</TargetFramework> <Nullable>enable</Nullable> <ImplicitUsings>enable</ImplicitUsings> <UseWPF>true</UseWPF> </PropertyGroup> <ItemGroup> <COMReference Include="{215d64d2-031c-33c7-96e3-61794cd1ee61}"> <WrapperTool>tlbimp</WrapperTool> <VersionMinor>0</VersionMinor> <VersionMajor>2</VersionMajor> <Guid>215d64d2-031c-33c7-96e3-61794cd1ee61</Guid> </COMReference> </ItemGroup> <ItemGroup> <ProjectReference Include="..\BModder\BModder.csproj" /> </ItemGroup> </Project>
+﻿<Project Sdk="Microsoft.NET.Sdk"> <PropertyGroup> <OutputType>WinExe</OutputType> <TargetFramework>net8.0-windows</TargetFramework> <Nullable>enable</Nullable> <ImplicitUsings>enable</ImplicitUsings> <UseWPF>true</UseWPF> <PackageIcon>icon.png</PackageIcon> <ApplicationIcon>Assets\icon.ico</ApplicationIcon> </PropertyGroup> <ItemGroup> <COMReference Include="{215d64d2-031c-33c7-96e3-61794cd1ee61}"> <WrapperTool>tlbimp</WrapperTool> <VersionMinor>0</VersionMinor> <VersionMajor>2</VersionMajor> <Guid>215d64d2-031c-33c7-96e3-61794cd1ee61</Guid> </COMReference> </ItemGroup> <ItemGroup>
+  <Content Include="Assets\icon.ico" />
+</ItemGroup> <ItemGroup> <ProjectReference Include="..\BModder\BModder.csproj" /> </ItemGroup> <ItemGroup>
+  <None Update="Assets\icon.ico">
+    <Pack>True</Pack>
+    <PackagePath>\</PackagePath>
+  </None>
+  <None Update="Assets\icon.png">
+    <Pack>True</Pack>
+    <PackagePath>\</PackagePath>
+  </None>
+</ItemGroup> </Project>
