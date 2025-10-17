@@ -21,16 +21,16 @@ It helps you check, verify, and manage game mods with ease — no manual setup r
     "modsPath": "BepInEx/plugins",
     "mods": [
         {
-    "name": "Better Lighting",
-    "modPath": "BepInEx/plugins/BetterLighting",
-    "downloadUrl": "https://example.com/mods/better-lighting.zip"
-  },
-  {
-    "name": "Extra Tools",
-    "modPath": "BepInEx/plugins/ExtraTools",
-    "downloadUrl": "https://example.com/mods/extra-tools.zip"
-  }
-    ]
+          "name": "Better Lighting",
+          "modPath": "BepInEx/plugins/BetterLighting",
+          "downloadUrl": "https://example.com/mods/better-lighting.zip"
+        },
+        {
+          "name": "Extra Tools",
+          "modPath": "BepInEx/plugins/ExtraTools",
+          "downloadUrl": "https://example.com/mods/extra-tools.zip"
+        }
+  ]
 }
 
 ```
