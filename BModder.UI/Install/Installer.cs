@@ -124,25 +124,38 @@ namespace BModder.UI
             Directory.CreateDirectory(tempDir);
             ZipFile.ExtractToDirectory(zipPath, tempDir, true);
 
-            string bepInExPath = Path.Combine(tempDir, _config.ModsPath!.Split('/')[0]);
-            if (Directory.Exists(bepInExPath))
+            string pluginsPathInArchive = Path.Combine(tempDir, "plugins");
+            if (Directory.Exists(pluginsPathInArchive))
             {
-                CopyAll(bepInExPath, Path.Combine(gamePath, _config.ModsPath!.Split('/')[0]));
+                CopyAll(pluginsPathInArchive, pluginsDir);
+                LogHelper.WriteLog($"✅ Installed mod from {Path.GetFileName(zipPath)}", LogHelper.LogType.Info);
             }
             else
             {
-                var dlls = Directory.GetFiles(tempDir, "*.dll", SearchOption.TopDirectoryOnly);
-                if (dlls.Length > 0)
+                string bepInExPath = Path.Combine(tempDir, _config.ModsPath!.Split('/')[0]);
+                if (Directory.Exists(bepInExPath))
                 {
-                    CopyAll(tempDir, pluginsDir);
+                    CopyAll(bepInExPath, Path.Combine(gamePath, _config.ModsPath!.Split('/')[0]));
+                    LogHelper.WriteLog($"✅ Installed mod (BepInEx format) from {Path.GetFileName(zipPath)}", LogHelper.LogType.Info);
                 }
                 else
                 {
-                    LogHelper.WriteLog($"⚠️  Unknown structure in {Path.GetFileName(zipPath)} — skipped.", LogHelper.LogType.Warn);
+                    var dlls = Directory.GetFiles(tempDir, "*.dll", SearchOption.TopDirectoryOnly);
+                    if (dlls.Length > 0)
+                    {
+                        CopyAll(tempDir, pluginsDir);
+                        LogHelper.WriteLog($"✅ Installed loose DLL mod from {Path.GetFileName(zipPath)}", LogHelper.LogType.Info);
+                    }
+                    else
+                    {
+                        LogHelper.WriteLog($"⚠️ Unknown structure in {Path.GetFileName(zipPath)} — skipped.", LogHelper.LogType.Warn);
+                    }
                 }
             }
+
             Directory.Delete(tempDir, true);
         }
+
 
         private static void CopyAll(string sourceDir, string targetDir)
         {
